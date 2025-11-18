@@ -1,13 +1,14 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -O2
 
-all: serveur client
+all: server client
 
 serveur: serveur.c
-    $(CC) $(CFLAGS) serveur.c -o serveur
+	$(CC) $(CFLAGS) server.c -o server
 
 client: client.c
-    $(CC) $(CFLAGS) client.c -o client
+	$(CC) $(CFLAGS) client.c -o client
 
 clean:
-    rm -f serveur client
+	rm -f server client
+
