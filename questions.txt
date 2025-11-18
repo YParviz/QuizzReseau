@@ -1,0 +1,101 @@
+Quelle est la capitale de la France ?|Paris
+Combien y a-t-il de continents sur Terre ?|7
+Quel est le plus grand océan du monde ?|Pacifique
+Quel est le plus long fleuve du monde ?|Nil
+Combien y a-t-il de planètes dans le système solaire ?|8
+Quelle planète est la plus proche du Soleil ?|Mercure
+Quelle planète est surnommée la planète rouge ?|Mars
+Quel est le plus grand désert du monde ?|Sahara
+Quel est le plus grand mammifère marin ?|Baleine bleue
+Combien de couleurs y a-t-il dans un arc-en-ciel ?|7
+Quelle est la langue la plus parlée dans le monde ?|Anglais
+Qui a peint la Joconde ?|Léonard de Vinci
+Qui a découvert la pénicilline ?|Alexander Fleming
+Qui a inventé l’ampoule électrique ?|Thomas Edison
+Quel est le symbole chimique de l’eau ?|H2O
+Quel est le métal dont le symbole est Fe ?|Fer
+Quel est le gaz le plus abondant dans l’atmosphère terrestre ?|Azote
+Combien de pattes a une araignée ?|8
+Combien de dents a un adulte normalement ?|32
+Quel est l’organe qui pompe le sang ?|Cœur
+Combien de jours y a-t-il dans une année bissextile ?|366
+Combien de mois ont 31 jours ?|7
+Combien y a-t-il de minutes dans une heure ?|60
+Combien y a-t-il de secondes dans une minute ?|60
+Combien y a-t-il de joueurs dans une équipe de football ?|11
+Combien de joueurs composent une équipe de basket-ball ?|5
+Combien de cordes a une guitare classique ?|6
+Combien de faces a un cube ?|6
+Combien de côtés a un hexagone ?|6
+Quelle est la capitale de l’Espagne ?|Madrid
+Quelle est la capitale du Japon ?|Tokyo
+Quelle est la capitale du Canada ?|Ottawa
+Quelle est la capitale de l’Australie ?|Canberra
+Quelle est la capitale du Brésil ?|Brasilia
+Quelle est la capitale de la Chine ?|Pékin
+Quelle est la capitale de l’Inde ?|New Delhi
+Quel pays a pour monnaie l’euro ?|France
+Quel pays a pour monnaie le dollar américain ?|États-Unis
+Quel pays a pour monnaie le yen ?|Japon
+Quel pays a pour monnaie la livre sterling ?|Royaume-Uni
+Quelle est la monnaie officielle de la Suisse ?|Franc suisse
+Qui a écrit "Les Misérables" ?|Victor Hugo
+Qui a écrit "Le Petit Prince" ?|Antoine de Saint-Exupéry
+Qui a écrit "L'Étranger" ?|Albert Camus
+Qui a écrit "Roméo et Juliette" ?|William Shakespeare
+Qui a écrit "Harry Potter" ?|J. K. Rowling
+Quel est le plus grand océan ?|Pacifique
+Quelle est la plus haute montagne du monde ?|Everest
+Dans quel pays se trouve la Tour Eiffel ?|France
+Dans quel pays se trouve la Grande Muraille ?|Chine
+Dans quel pays se trouve le Machu Picchu ?|Pérou
+Quel animal est le roi de la jungle ?|Lion
+Quel animal pond des œufs ?|Poule
+Quel animal produit du lait ?|Vache
+Quel est le plus rapide des animaux terrestres ?|Guépard
+Quel animal a une trompe ?|Éléphant
+Quel animal vit dans une ruche ?|Abeille
+Combien de lettres y a-t-il dans l’alphabet français ?|26
+Quel est le verbe à l’infinitif de “mangeons” ?|Manger
+Quel est le pluriel de “cheval” ?|Chevaux
+Quel est le féminin du mot “acteur” ?|Actrice
+Quelle est la racine carrée de 49 ?|7
+Combien font 9 multiplié par 8 ?|72
+Quel est le nombre premier après 7 ?|11
+Quel est le résultat de 100 divisé par 4 ?|25
+Quelle est la capitale de l’Allemagne ?|Berlin
+Quelle est la capitale de la Belgique ?|Bruxelles
+Quelle est la capitale de la Grèce ?|Athènes
+Quelle est la capitale de l’Italie ?|Rome
+Quelle est la capitale de la Norvège ?|Oslo
+Quelle est la capitale du Portugal ?|Lisbonne
+Quelle est la capitale de la Russie ?|Moscou
+Quelle est la capitale de la Suède ?|Stockholm
+Quelle est la capitale de la Turquie ?|Ankara
+Quel instrument mesure la température ?|Thermomètre
+Quel instrument mesure la pression atmosphérique ?|Baromètre
+Quel instrument mesure la vitesse du vent ?|Anémomètre
+Quel instrument mesure le temps ?|Montre
+Quel instrument sert à observer les étoiles ?|Télescope
+Quelle est la couleur du sang ?|Rouge
+Quelle est la couleur du ciel par temps clair ?|Bleu
+Quelle est la couleur du drapeau français au centre ?|Blanc
+Quel métal est utilisé pour fabriquer les canettes ?|Aluminium
+Quel métal est utilisé pour fabriquer les bijoux en or ?|Or
+Quelle est la saison la plus froide de l’année ?|Hiver
+Quelle est la saison la plus chaude de l’année ?|Été
+Combien de saisons y a-t-il dans une année ?|4
+Quel jour vient après vendredi ?|Samedi
+Quel jour vient avant lundi ?|Dimanche
+Combien de jours a le mois de février (année normale) ?|28
+Quel mois vient après juin ?|Juillet
+Quel mois vient avant octobre ?|Septembre
+Combien y a-t-il d’heures dans une journée ?|24
+Combien y a-t-il de semaines dans une année ?|52
+Combien de zéros dans un million ?|6
+Combien de zéros dans un milliard ?|9
+Quel est le sens opposé de “grand” ?|Petit
+Quel est le contraire de “noir” ?|Blanc
+Quel est le contraire de “jour” ?|Nuit
+Quelle est la plus grande planète du système solaire ?|Jupiter
+Quelle planète possède des anneaux visibles ?|Saturne
