@@ -14,7 +14,7 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
-#include <sys/time.h> // ✨ NOUVEL INCLUDE pour gettimeofday
+#include <sys/time.h> 
 
 #define PORT 5000
 #define MAXQ 2000
@@ -31,19 +31,45 @@ typedef struct {
 QA questions[MAXQ];
 int qcount = 0;
 
-/* trim leading/trailing spaces and convert to lowercase for comparison */
+/* trim leading/trailing spaces and convert to lowercase for comparison, and strip accents */
 void normalize(char *s) {
-    // trim
     char *start = s;
     while (*start && isspace((unsigned char)*start)) start++;
     char *end = s + strlen(start);
     while (end > start && isspace((unsigned char)*(end-1))) end--;
     *end = '\0';
-    // lowercase in place and collapse CR
+
     for (char *p = start; *p; ++p) {
         if (*p == '\r' || *p == '\n') { *p = '\0'; break; }
-        *p = tolower((unsigned char)*p);
+
+        unsigned char c = (unsigned char)*p;
+
+        // Permet de ne pas prendre en compte les accents dans la réponse de l'utilisateur
+        // Utilisation des codes hexadécimaux Latin-1 pour éviter les warnings multi-char
+        switch (c) {
+            case 0xC0: case 0xC1: case 0xC2: case 0xC3: case 0xC4: *p = 'a'; break; 
+            case 0xE0: case 0xE1: case 0xE2: case 0xE3: case 0xE4: *p = 'a'; break;
+            
+            case 0xC8: case 0xC9: case 0xCA: case 0xCB: *p = 'e'; break; 
+            case 0xE8: case 0xE9: case 0xEA: case 0xEB: *p = 'e'; break;
+            
+            case 0xCC: case 0xCD: case 0xCE: case 0xCF: *p = 'i'; break;
+            case 0xEC: case 0xED: case 0xEE: case 0xEF: *p = 'i'; break;
+            
+            case 0xD2: case 0xD3: case 0xD4: case 0xD5: case 0xD6: *p = 'o'; break;
+            case 0xF2: case 0xF3: case 0xF4: case 0xF5: case 0xF6: *p = 'o'; break;
+            
+            case 0xD9: case 0xDA: case 0xDB: case 0xDC: *p = 'u'; break; 
+            case 0xF9: case 0xFA: case 0xFB: case 0xFC: *p = 'u'; break; 
+            
+            case 0xC7: case 0xE7: *p = 'c'; break; 
+
+            case 0xDD: case 0xFF: *p = 'y'; break; 
+
+            default: *p = tolower(c); break; 
+        }
     }
+    
     // move to beginning
     if (start != s) memmove(s, start, strlen(start)+1);
 }
@@ -129,7 +155,8 @@ void handle_client(int csock) {
         if (idx < 0) break;
 
         // send question
-        snprintf(buf, sizeof(buf), "QUESTION: %s\n", questions[idx].question);
+        size_t max_q_len = sizeof(buf) - (strlen("QUESTION: \n") + 1);
+        snprintf(buf, sizeof(buf), "QUESTION: %.*s\n", (int)max_q_len, questions[idx].question);
         if (send_all(csock, buf, strlen(buf)) <= 0) break;
 
         // receive answer (line)
