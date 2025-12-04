@@ -14,6 +14,7 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
+#include <sys/time.h> // ✨ NOUVEL INCLUDE pour gettimeofday
 
 #define PORT 5000
 #define MAXQ 2000
@@ -106,6 +107,10 @@ int pick_random(int avail[], int navail) {
 
 /* child process handles a single client quiz session */
 void handle_client(int csock) {
+    struct timeval tv;
+    gettimeofday(&tv, NULL);
+    srand(tv.tv_sec * 1000000 + tv.tv_usec + getpid());
+
     char buf[BUFSIZE];
     int score = 0;
 
@@ -191,8 +196,6 @@ int main(int argc, char **argv) {
         fprintf(stderr, "Aucune question chargee.\n");
         return 1;
     }
-
-    srand(time(NULL) ^ getpid());
 
     int sd = socket(AF_INET, SOCK_STREAM, 0);
     if (sd < 0) { perror("socket"); return 1; }
