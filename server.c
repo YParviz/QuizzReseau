@@ -128,8 +128,9 @@ void handle_client(int csock) {
         int idx = pick_random(avail, n_avail);
         if (idx < 0) break;
 
-        // send question
-        snprintf(buf, sizeof(buf), "QUESTION: %s\n", questions[idx].question);
+        if (send_all(csock, "\n", 1) <= 0) break;
+        size_t max_q_len = sizeof(buf) - (strlen("QUESTION: \n") + 1);
+        snprintf(buf, sizeof(buf), "QUESTION: %.*s\n", (int)max_q_len, questions[idx].question);
         if (send_all(csock, buf, strlen(buf)) <= 0) break;
 
         // receive answer (line)
