@@ -1,30 +1,21 @@
-/* client.c
-   Client interactif pour le Quiz réseau
-   Usage: ./client <serveur-ip> [port]
-   Compile: gcc client.c -o client
-*/
-
+/* client.c - Client compatible avec le mode Arcade (INPUT:) */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-#include <ctype.h>
-#include <errno.h>
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <netdb.h>
 #include <arpa/inet.h>
+#include <netdb.h>
 
 #define DEFAULT_PORT 5000
-#define BUFSIZE 512
+#define BUFSIZE 1024
 
-/* read a line from socket (terminated by '\n') */
+/* Lecture ligne par ligne depuis le socket */
 ssize_t recv_line(int sock, char *buf, size_t bufsz) {
     size_t idx = 0;
     while (idx + 1 < bufsz) {
         char c;
         ssize_t r = recv(sock, &c, 1, 0);
-        if (r <= 0) return (r == 0 && idx>0) ? idx : -1;
+        if (r <= 0) return (r == 0 && idx > 0) ? (ssize_t)idx : -1;
         buf[idx++] = c;
         if (c == '\n') break;
     }
@@ -47,15 +38,14 @@ int main(int argc, char **argv) {
     memset(&servaddr, 0, sizeof(servaddr));
     servaddr.sin_family = AF_INET;
     servaddr.sin_port = htons(port);
+    
+    // Résolution d'adresse (IP ou DNS)
     if (inet_pton(AF_INET, server, &servaddr.sin_addr) <= 0) {
-        // try DNS
         struct addrinfo hints, *res;
         memset(&hints,0,sizeof(hints));
         hints.ai_family = AF_INET;
         if (getaddrinfo(server, NULL, &hints, &res) != 0) {
-            perror("inet_pton/getaddrinfo");
-            close(sd);
-            return 1;
+            perror("getaddrinfo"); close(sd); return 1;
         }
         struct sockaddr_in *sa = (struct sockaddr_in *)res->ai_addr;
         servaddr.sin_addr = sa->sin_addr;
@@ -65,58 +55,37 @@ int main(int argc, char **argv) {
     if (connect(sd, (struct sockaddr*)&servaddr, sizeof(servaddr)) < 0) {
         perror("connect"); close(sd); return 1;
     }
-
     printf("Connecté au serveur %s:%d\n", server, port);
 
     char buf[BUFSIZE];
-    // initial server greeting(s)
+    
+    // --- BOUCLE PRINCIPALE ---
     while (1) {
+        // 1. On attend un message du serveur
         ssize_t r = recv_line(sd, buf, sizeof(buf));
-        if (r <= 0) { break; }
-        printf("%s", buf);
-        // if the line is a QUESTION, break to allow user input
-        if (strncmp(buf, "QUESTION:", 9) == 0) break;
-        // if server sent BYE/DONE, then exit
-        if (strncmp(buf, "BYE:", 4) == 0 || strncmp(buf, "DONE:", 5) == 0 || strncmp(buf, "INCORRECT:",10)==0) {
-            close(sd); return 0;
-        }
-    }
+        if (r <= 0) break; // Serveur déconnecté
 
-    while (1) {
-        // buf currently contains the QUESTION line (or we proceed)
-        if (strncmp(buf, "QUESTION:", 9) == 0) {
-            // print question already printed above
-        } else {
-            ssize_t r = recv_line(sd, buf, sizeof(buf));
-            if (r <= 0) break;
+        // 2. Si le message commence par "INPUT:", c'est à nous de jouer
+        if (strncmp(buf, "INPUT:", 6) == 0) {
+            // On affiche le message (en sautant le préfixe "INPUT: ")
+            printf("%s", buf + 7); 
+            
+            // Saisie utilisateur
+            char answer[BUFSIZE];
+            if (!fgets(answer, sizeof(answer), stdin)) break;
+            
+            // Envoi de la réponse au serveur
+            if (send(sd, answer, strlen(answer), 0) <= 0) break;
+        } 
+        // 3. Si c'est un message de fin
+        else if (strncmp(buf, "BYE:", 4) == 0) {
             printf("%s", buf);
-            if (strncmp(buf, "QUESTION:", 9) != 0) {
-                // not a question -> maybe final message
-                if (strncmp(buf,"INCORRECT:",10)==0 || strncmp(buf,"BYE:",4)==0 || strncmp(buf,"DONE:",5)==0) break;
-                continue;
-            }
+            break;
         }
-
-        // read user input
-        char answer[BUFSIZE];
-        printf("Votre réponse (q pour quitter) > ");
-        if (!fgets(answer, sizeof(answer), stdin)) break;
-        // ensure newline
-        if (answer[strlen(answer)-1] != '\n') {
-            strncat(answer, "\n", sizeof(answer)-strlen(answer)-1);
+        // 4. Sinon, c'est juste un message d'info (Score, etc.)
+        else {
+            printf("%s", buf);
         }
-
-        // send answer
-        if (send(sd, answer, strlen(answer), 0) <= 0) { perror("send"); break; }
-
-        // read server response (could be CORRECT or INCORRECT or SCORE)
-        ssize_t r = recv_line(sd, buf, sizeof(buf));
-        if (r <= 0) break;
-        printf("%s", buf);
-        // if INCORRECT or BYE or DONE -> session ended
-        if (strncmp(buf, "INCORRECT:",10)==0 || strncmp(buf,"BYE:",4)==0 || strncmp(buf,"DONE:",5)==0) break;
-
-        // else next iteration will get the next QUESTION which will be read at start of loop
     }
 
     close(sd);
