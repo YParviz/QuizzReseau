@@ -83,7 +83,7 @@ Quelle est la couleur du drapeau irlandais au centre ?|Blanc
 Quel métal est utilisé pour fabriquer les canettes ?|Aluminium
 Quel métal a pour symbole chimique Pb ?|Plomb
 Qui est le premier président des États-Unis ?|George Washington
-Quelle est la saison la plus chaude de l’année ?|Été
+Quel norvégien est connu comme étant le meilleur joueur d'échecs de l'histoire ?|Magnus Carlsen
 Comment les américains nomment-ils le football ?|Soccer
 Dans quel pays se trouve le Taj Mahal ?|Inde
 Qui est l'auteur du livre "Voyage au centre de la Terre" ?|Jules Verne
