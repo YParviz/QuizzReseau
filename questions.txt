@@ -1,101 +1,150 @@
-Quel pays a pour capitale Budapest ?|Hongrie
-Quel pays a pour capitale Hanoï ?|Vietnam
-Quel est le plus grand océan du monde ?|Pacifique
-De quelle couleur est la boîte noire d'un avion ?|Orange
-Combien y a-t-il de planètes dans le système solaire ?|8
-Quelle planète est la plus proche du Soleil ?|Mercure
-Quelle planète est surnommée la planète rouge ?|Mars
-Quel est le plus grand désert chaud du monde ?|Sahara
-Quel est le plus grand mammifère marin ?|Baleine bleue
-Combien de couleurs y a-t-il dans un arc-en-ciel ?|7
-Quelle est la langue la plus parlée dans le monde ?|Anglais
-Qui a peint la Joconde ?|Léonard de Vinci
-Qui a découvert la pénicilline ?|Alexander Fleming
-Qui a inventé l’ampoule électrique ?|Thomas Edison
-Quel est le symbole chimique de l’eau ?|H2O
-Quel est le métal dont le symbole est Au ?|Or
-Quel est le gaz le plus abondant dans l’atmosphère terrestre ?|Azote
-Combien de pattes a une araignée ?|8
-Combien de dents a un adulte normalement ?|32
-Quel organe est aussi appelé colon ?|Gros intestin
-Combien de jours y a-t-il dans une année bissextile ?|366
-Combien de mois ont 31 jours ?|7
-Combien y a-t-il de secondes dans une heure ?|3600
-Quel est le plus grand désert du monde ?|Antarctique
-Quel pays a remporté la coupe du monde 2010 de football ?|Espagne
-Combien de joueurs composent une équipe de basket-ball ?|5
-Combien de cordes a une guitare classique ?|6
-Quel est le plus jeune pays du monde ?|Soudan du Sud
-Combien de côtés a un heptagone ?|7
-Quelle est la capitale de l’Irlande ?|Dublin
-Quelle est la capitale du Japon ?|Tokyo
-Quelle est la capitale du Canada ?|Ottawa
-Quelle est la capitale de l’Australie ?|Canberra
-Quelle est la capitale du Brésil ?|Brasilia
-Quelle est la capitale de l'Afghanistan ?|Kaboul
-Quelle est la capitale de l’Inde ?|New Delhi
-Quel pays a pour monnaie le rand ?|Afrique du Sud
-En quelle année la chute du mur de Berlin a-t-elle eu lieu ?|1989
-Quel pays a pour monnaie le yen ?|Japon
-Quel pays a pour monnaie le zloty ?|Pologne
-Quelle est la monnaie officielle de la Suisse ?|Franc suisse
-Qui a écrit "Les Misérables" ?|Victor Hugo
-Qui est le meilleur buteur de l'histoire du football ?|Cristiano Ronaldo
-Qui a écrit "L'Étranger" ?|Albert Camus
-Qui a écrit "Roméo et Juliette" ?|William Shakespeare
-Qui a écrit "Harry Potter" ?|JK Rowling
-Quel pays possède le territoire du Groenland ?|Danemark
-Quelle est la plus haute montagne du monde ?|Everest
-Quel pays contient le plus de pyramides ?|Soudan
-Dans quel pays se trouve la Grande Muraille ?|Chine
-Dans quel pays se trouve le Machu Picchu ?|Pérou
-Quel est le résultat de 13 fois 13 ?|169
-Quel jour célèbre-t-on l'armistice de la Première Guerre Mondiale ?|11 novembre
-Quel jour célèbre-t-on l'armistice de la Seconde Guerre Mondiale ?|8 mai
-Quel est le plus rapide des animaux terrestres ?|Guépard
-Combien de temps a duré la guerre de 100 ans ?|116
-Quel animal vit dans une ruche ?|Abeille
-Combien de lettres y a-t-il dans l’alphabet français ?|26
-Quel est le verbe à l’infinitif de “irons” ?|Aller
-Quel est le pluriel de “naval” ?|navals
-Quel est le féminin du mot “acteur” ?|Actrice
-Quelle est la racine carrée de 49 ?|7
-Combien font 9 multiplié par 8 ?|72
-Parmi les nombres premiers quel nombre est le premier après 7 ?|11
-Quel est le résultat de 144 divisé par 12 ?|12
-Quelle est la capitale de l’Allemagne ?|Berlin
-Quelle est la capitale de la Belgique ?|Bruxelles
-Quelle est la capitale de la Thaïlande ?|Bangkok
-Quelle est la capitale de l’Italie ?|Rome
-Quelle est la capitale de la Norvège ?|Oslo
-Quelle est la capitale du Portugal ?|Lisbonne
-Quelle est la capitale de la Russie ?|Moscou
-Quelle est la capitale de la Suède ?|Stockholm
-Quelle est la capitale de la Turquie ?|Ankara
-Quel instrument mesure la température ?|Thermomètre
-Quel instrument mesure la pression atmosphérique ?|Baromètre
-Quel instrument mesure la vitesse du vent ?|Anémomètre
-Dans quel sport utilise-t-on les termes "strike" et "spare" ?|Bowling
-Quel instrument sert à observer les étoiles ?|Télescope
-Quelle est la couleur en haut du drapeau de l'Allemagne ?|Noir
-Quelle est la couleur à droite du drapeau du Portugal ?|Rouge
-Quelle est la couleur du drapeau irlandais au centre ?|Blanc
-Quel métal est utilisé pour fabriquer les canettes ?|Aluminium
-Quel métal a pour symbole chimique Pb ?|Plomb
-Qui est le premier président des États-Unis ?|George Washington
-Quel norvégien est connu comme étant le meilleur joueur d'échecs de l'histoire ?|Magnus Carlsen
-Comment les américains nomment-ils le football ?|Soccer
-Dans quel pays se trouve le Taj Mahal ?|Inde
-Qui est l'auteur du livre "Voyage au centre de la Terre" ?|Jules Verne
-Combien de jours comporte le mois de février 2026 ?|28
-Quel est le septième mois de l'année ?|Juillet
-Quel célèbre scientifique a développé la théorie de la relativité ?|Albert Einstein
-Qui est le dirigeant actuel de la Russie ?|Vladimir Poutine
-Qui était le dirigeant des États-Unis de 2021 à 2025 ?|Joe Biden
-Qui est célèbre pour l'appel du 18 juin 1940 ?|Charles de Gaulle
-Combien de zéros dans un milliard ?|9
-Quel métal a pour symbole chimique Ag ?|Argent
-Dans quelle ville se sont déroulés les JO 2020 ?|Tokyo
-Dans quelle ville se sont déroulés les JO 2012 ?|Londres
-Quelle est la plus grande planète du système solaire ?|Jupiter
-Quelle planète possède des anneaux visibles ?|Saturne
+Quel pays a pour capitale Budapest ?|Hongrie|1
+Quel pays a pour capitale Hanoï ?|Vietnam|3
+Quel est le plus grand océan du monde ?|Pacifique|1
+Combien y a-t-il de planètes dans le système solaire ?|8|2
+Quelle planète est la plus proche du Soleil ?|Mercure|2
+Quelle planète est surnommée la planète rouge ?|Mars|1
+Quel est le plus grand désert chaud du monde ?|Sahara|2
+Quel est le plus grand mammifère marin ?|Baleine bleue|3
+Combien de couleurs y a-t-il dans un arc-en-ciel ?|7|2
+Quelle est la langue la plus parlée dans le monde ?|Anglais|2
+Qui a peint la Joconde ?|Léonard de Vinci|1
+Qui a découvert la pénicilline ?|Alexander Fleming|3
+Qui a inventé l’ampoule électrique ?|Thomas Edison|3
+Quel est le symbole chimique de l’eau ?|H2O|2
+Quel est le métal dont le symbole est Au ?|Or|3
+Quel est le gaz le plus abondant dans l’atmosphère terrestre ?|Azote|3
+Combien de pattes a une araignée ?|8|1
+Combien de dents a un adulte normalement ?|32|2
+Quel organe est aussi appelé colon ?|Gros intestin|3
+Combien de jours y a-t-il dans une année bissextile ?|366|1
+Combien de mois ont 31 jours ?|7|2
+Combien y a-t-il de secondes dans une heure ?|3600|2
+Quel est le plus grand désert du monde ?|Antarctique|2
+Quel pays a remporté la coupe du monde 2010 de football ?|Espagne|1
+Combien de joueurs composent une équipe de basket-ball ?|5|1
+Combien de cordes a une guitare classique ?|6|1
+Quel est le plus jeune pays du monde ?|Soudan du Sud|3
+Combien de côtés a un heptagone ?|7|2
+Quelle est la capitale de l’Irlande ?|Dublin|1
+Quelle est la capitale du Japon ?|Tokyo|1
+Quelle est la capitale du Canada ?|Ottawa|2
+Quelle est la capitale de l’Australie ?|Canberra|2
+Quelle est la capitale du Brésil ?|Brasilia|1
+Quelle est la capitale de l'Afghanistan ?|Kaboul|2
+Quelle est la capitale de l’Inde ?|New Delhi|2
+Quel pays a pour monnaie le rand ?|Afrique du Sud|3
+En quelle année la chute du mur de Berlin a-t-elle eu lieu ?|1989|3
+Quel pays a pour monnaie le yen ?|Japon|1
+Quel pays a pour monnaie le zloty ?|Pologne|3
+Quelle est la monnaie officielle de la Suisse ?|Franc suisse|2
+Qui a écrit "Les Misérables" ?|Victor Hugo|1
+Qui est le meilleur buteur de l'histoire du football ?|Cristiano Ronaldo|3
+Qui a écrit "L'Étranger" ?|Albert Camus|3
+Qui a écrit "Roméo et Juliette" ?|William Shakespeare|2
+Qui a écrit "Harry Potter" ?|JK Rowling|2
+Quel pays possède le territoire du Groenland ?|Danemark|3
+Quelle est la plus haute montagne du monde ?|Everest|1
+Quelle est la deuxième plus haute montagne du monde ?|K2|3
+Dans quel pays se trouve le K2 ?|Pakistan|3
+Quel pays contient le plus de pyramides ?|Soudan|3
+Dans quel pays se trouve la Grande Muraille ?|Chine|1
+Dans quel pays se trouve le Machu Picchu ?|Pérou|2
+Quel est le résultat de 13 fois 13 ?|169|2
+Quel jour célèbre-t-on l'armistice de la Première Guerre Mondiale ?|11 novembre|2
+Quel jour célèbre-t-on l'armistice de la Seconde Guerre Mondiale ?|8 mai|2
+Quel est le plus rapide des animaux terrestres ?|Guépard|1
+Combien de temps a duré la guerre de 100 ans ?|116|3
+Quel animal vit dans une ruche ?|Abeille|1
+Combien de lettres y a-t-il dans l’alphabet français ?|26|1
+Quel est le verbe à l’infinitif de “irons” ?|Aller|1
+Quel est le pluriel de “naval” ?|navals|1
+Quel est le féminin du mot “acteur” ?|Actrice|1
+Quelle est la racine carrée de 49 ?|7|1
+Combien font 9 multiplié par 8 ?|72|1
+Parmi les nombres premiers quel nombre est le premier après 7 ?|11|3
+Quel est le résultat de 144 divisé par 12 ?|12|2
+Quelle est la capitale de l’Allemagne ?|Berlin|1
+Quelle est la capitale de la Belgique ?|Bruxelles|1
+Quelle est la capitale de la Thaïlande ?|Bangkok|2
+Quelle est la capitale de l’Italie ?|Rome|1
+Quelle est la capitale de la Norvège ?|Oslo|3
+Quelle est la capitale du Portugal ?|Lisbonne|2
+Quelle est la capitale de la Russie ?|Moscou|1
+Quelle est la capitale de la Suède ?|Stockholm|3
+Quelle est la capitale de la Turquie ?|Ankara|2
+Quel instrument mesure la température ?|Thermomètre|2
+Quel instrument mesure la pression atmosphérique ?|Baromètre|3
+Quel instrument mesure la vitesse du vent ?|Anémomètre|3
+Dans quel sport utilise-t-on les termes "strike" et "spare" ?|Bowling|1
+Quel instrument sert à observer les étoiles ?|Télescope|2
+Quelle est la couleur en haut du drapeau de l'Allemagne ?|Noir|3
+Quelle est la couleur à droite du drapeau du Portugal ?|Rouge|2
+Quelle est la couleur du drapeau irlandais au centre ?|Blanc|3
+Quel métal est utilisé pour fabriquer les canettes ?|Aluminium|2
+Quel métal a pour symbole chimique Pb ?|Plomb|3
+Qui est le premier président des États-Unis ?|George Washington|3
+Quel norvégien est connu comme étant le meilleur joueur d'échecs de l'histoire ?|Magnus Carlsen|2
+Comment les américains nomment-ils le football ?|Soccer|2
+Dans quel pays se trouve le Taj Mahal ?|Inde|1
+Qui est l'auteur du livre "Voyage au centre de la Terre" ?|Jules Verne|3
+Combien de jours comporte le mois de février 2026 ?|28|2
+Quel est le septième mois de l'année ?|Juillet|1
+Quel célèbre scientifique a développé la théorie de la relativité ?|Albert Einstein|3
+Qui est le dirigeant actuel de la Russie ?|Vladimir Poutine|2
+Qui était le dirigeant des États-Unis de 2021 à 2025 ?|Joe Biden|3
+Qui est célèbre pour l'appel du 18 juin 1940 ?|Charles de Gaulle|3
+Combien de zéros dans un milliard ?|9|1
+Quel métal a pour symbole chimique Ag ?|Argent|2
+Dans quelle ville se sont déroulés les JO 2020 ?|Tokyo|3
+Dans quelle ville se sont déroulés les JO 2012 ?|Londres|2
+Quelle est la plus grande planète du système solaire ?|Jupiter|2
+Quelle planète possède des anneaux visibles ?|Saturne|3
+Quel pays possède les plus grandes réserves de pétrole au monde ?|Venezuela|3
+Quelle est la couleur du cheval blanc d'Henri IV ?|Blanc|1
+Dans quelle ville se trouve la Tour Eiffel ?|Paris|1
+Quel animal est considéré comme le roi de la jungle ?|Lion|1
+Combien de minutes y a-t-il dans une heure ?|60|1
+Combien de doigts a une main humaine ?|5|1
+Quel super-héros craint la kryptonite ?|Superman|1
+Avec quel objet frappe-t-on la balle au tennis ?|Raquette|1
+Quel est le prénom du frère de Mario ?|Luigi|1
+Quelle est la capitale de la France ?|Paris|1
+Quel est l'état de l'eau quand elle gèle ?|Solide|1
+Quelle est la couleur du sang humain ?|Rouge|1
+Combien de roues a un vélo standard ?|2|1
+Quel est le premier mois de l'année ?|Janvier|1
+Quel est le contraire de "froid" ?|Chaud|1
+Comment appelle-t-on le petit du chien ?|Chiot|1
+Combien d'os composent le squelette d'un adulte humain ?|206|2
+Comment s'appelle le chien de Tintin ?|Milou|2
+Quel fleuve traverse la ville de Paris ?|Seine|2
+A quelle température l'eau bout-elle (en degrés Celsius) ?|100|2
+Qui a fondé l'entreprise Microsoft ?|Bill Gates|2
+Quel est le plus grand pays du monde par sa superficie ?|Russie|2
+Quelle ville a accueilli les Jeux Olympiques d'été de 2024 ?|Paris|2
+Qui a réalisé le film "Titanic" ?|James Cameron|2
+Quel oiseau est le symbole universel de la paix ?|Colombe|2
+Sur quel continent se trouve l'Égypte ?|Afrique|2
+Quel est l'ingrédient principal du guacamole ?|Avocat|2
+Quel est l'élément chimique unique qui compose le diamant ?|Carbone|3
+Qui est l'auteur du roman "1984" ?|George Orwell|3
+Quel peintre espagnol a réalisé "Guernica" ?|Pablo Picasso|2
+Quelle est la vitesse approximative de la lumière en km/s ?|300000|3
+En quelle année a débuté la Révolution française ?|1789|1
+Quel est le symbole chimique du Fer ?|Fe|3
+Combien de titres de champion du monde de F1 possède Lewis Hamilton ?|7|3
+Qui a réalisé le film "Pulp Fiction" ?|Quentin Tarantino|3
+Quel président américain était au pouvoir lors de la guerre de Sécession ?|Abraham Lincoln|3
+Quelle est la capitale de l'Islande ?|Reykjavik|3
+Quelle saison vient après l'été ?|Automne|1
+Dans quelle ville se trouve le Colisée ?|Rome|1
+Quelle hormone est sécrétée en cas de stress ?|Adrénaline|3
+Qui fut le premier homme dans l'espace ?|Youri Gagarine|3
+Quel est le plus petit pays du monde ?|Vatican|3
+Comment appelle-t-on la peur des araignées ?|Arachnophobie|3
+Quel est le symbole chimique du Potassium ?|K|3
+Quelle est la monnaie officielle de la Chine ?|Yuan|3
+Dans quelle ville ont eu lieu les premiers Jeux Olympiques modernes en 1896 ?|Athènes|3
+Quel est le nom scientifique de l'être humain moderne ?|Homo sapiens|3
+En quelle année a été signé le traité de Versailles ?|1919|3
