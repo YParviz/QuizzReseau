@@ -27,7 +27,8 @@
 
 typedef struct {
     char question[512]; // Texte des questions
-    char answer[256];   // Réponses correctes
+    char answer[256]; // Réponses correctes
+    int difficulty; // 1, 2 ou 3
 } QA;
 
 QA questions[MAXQ]; // Tableau stockant les questions/réponses
@@ -91,6 +92,7 @@ void init_db() {
         "id INTEGER PRIMARY KEY AUTOINCREMENT, "
         "username TEXT, "
         "score INTEGER, "
+        "difficulty TEXT, " // Colonne pour le niveau
         "timestamp DATETIME DEFAULT CURRENT_TIMESTAMP);";
     rc = sqlite3_exec(db, sql_scores, 0, 0, &err_msg); 
     if (rc != SQLITE_OK) {
@@ -100,84 +102,112 @@ void init_db() {
     sqlite3_close(db); 
 }
 
-// Sauvegarde le score d'un utilisateur dans la base
-void save_score_db(const char *user, int score) {
+// Sauvegarde le score d'un utilisateur dans la base avec la difficulté
+void save_score_db_with_diff(const char *user, int score, const char *diff_name) {
     sqlite3 *db;
     sqlite3_open(DB_FILE, &db);
-    const char *sql = "INSERT INTO scores (username, score) VALUES (?, ?);";
+    // On inclut la difficulté dans l'insertion
+    const char *sql = "INSERT INTO scores (username, score, difficulty) VALUES (?, ?, ?);";
     sqlite3_stmt *stmt;
     sqlite3_prepare_v2(db, sql, -1, &stmt, 0); 
     sqlite3_bind_text(stmt, 1, user, -1, SQLITE_STATIC); 
     sqlite3_bind_int(stmt, 2, score); 
+    sqlite3_bind_text(stmt, 3, diff_name, -1, SQLITE_STATIC);
     sqlite3_step(stmt); 
     sqlite3_finalize(stmt); 
     sqlite3_close(db);
 }
 
-// Envoie le top 5 des meilleurs scores des utilisateurs
-void send_global_leaderboard(int sock) {
+// Envoie les meilleurs scores des utilisateurs
+void send_leaderboard(int sock, int diff_filter) {
     sqlite3 *db;
     sqlite3_open(DB_FILE, &db);
     sqlite3_stmt *stmt; // curseur placé au début de la liste des réponses
-    // Sélectionne les 5 meilleurs scores par ordre décroissant pour les afficher
-    const char *sql = "SELECT username, score FROM scores ORDER BY score DESC LIMIT 5;";
-    char buffer[BUFSIZE] = "\n=== TOP 5 MEILLEURS JOUEURS ===\n";
+    char buffer[BUFSIZE * 2] = ""; // Buffer plus large pour contenir tout le classement
     
-    if (sqlite3_prepare_v2(db, sql, -1, &stmt, 0) == SQLITE_OK) {
+    // Si diff_filter > 0, on affiche le top 5 du niveau de l'utilisateur
+    // Si diff_filter == 0, on affiche le top 3 de tous les niveaux (l'utilisateur est dans le menu)
+    int start = (diff_filter == 0) ? 1 : diff_filter;
+    int end = (diff_filter == 0) ? 3 : diff_filter;
+    int limit = (diff_filter == 0) ? 3 : 5;
+
+    for (int d = start; d <= end; d++) {
+        char title[100];
+        char *diff_name = (d==1)?"DEBUTANT":(d==2)?"INTERMEDIAIRE":"EXPERT";
+        snprintf(title, sizeof(title), "\n--- TOP %d %s ---\n", limit, diff_name);
+        strcat(buffer, title);
+
+        // Sélectionne les meilleurs scores filtrés par difficulté
+        const char *sql = "SELECT username, score FROM scores WHERE difficulty = ? ORDER BY score DESC LIMIT ?;";
+        sqlite3_prepare_v2(db, sql, -1, &stmt, 0);
+        sqlite3_bind_text(stmt, 1, diff_name, -1, SQLITE_STATIC);
+        sqlite3_bind_int(stmt, 2, limit);
+
         int rank = 1;
         // Boucle sur les résultats
         while (sqlite3_step(stmt) == SQLITE_ROW) {
             char line[128];
-            // Récupère les données
-            const unsigned char *u = sqlite3_column_text(stmt, 0); // lis la colonne 0 (pseudo)
-            int s = sqlite3_column_int(stmt, 1); // lis la colonne 1 (score)
-            snprintf(line, sizeof(line), "%d. %s : %d pts\n", rank++, u, s); // formate l'affichage de la ligne
-            strcat(buffer, line); // ajout de la ligne au texte final
+            const unsigned char *u = sqlite3_column_text(stmt, 0); // pseudo
+            int s = sqlite3_column_int(stmt, 1); // score
+            snprintf(line, sizeof(line), "%d. %s : %d pts\n", rank++, u, s);
+            strcat(buffer, line);
         }
+        sqlite3_finalize(stmt);
     }
-    strcat(buffer, "===============================\n");
     // Envoie le classement complet
-    send_all(sock, "%s", buffer); 
-    sqlite3_finalize(stmt);
+    send_all(sock, "%s", buffer);
     sqlite3_close(db);
 }
 
-// Charge les question à partir du fichier questions.txt
+// Charge les questions à partir du fichier questions.txt
 int load_questions(const char *filename) {
-    FILE *f = fopen(filename, "r"); // le serveur cherche le fichier dans le disque dur en lecture seule ("r")
-    if (!f) return 0; // Échec ouverture fichier
-    char line[768];
+    FILE *f = fopen(filename, "r");
+    if (!f) return 0;
+    char line[1024];
     qcount = 0;
+    // Découpe le texte en 3 (question, réponse, difficulté)
     while (fgets(line, sizeof(line), f) && qcount < MAXQ) {
-        // Cherche le séparateur '|'
-        char *sep = strchr(line, '|'); 
-        if (!sep) continue;
-        *sep = '\0'; // Remplace '|' par '\0' pour séparer la question et la réponse
-        // Copie la question
-        strncpy(questions[qcount].question, line, 511); 
-        // Copie la réponse
-        strncpy(questions[qcount].answer, sep + 1, 255); 
-        char *nl = strchr(questions[qcount].answer, '\n');
-        if (nl) *nl = '\0';
-        qcount++;
+        char *q = strtok(line, "|");
+        char *a = strtok(NULL, "|");
+        char *d = strtok(NULL, "|");
+
+        if (q && a && d) {
+            strncpy(questions[qcount].question, q, 511);
+            strncpy(questions[qcount].answer, a, 255);
+            questions[qcount].difficulty = atoi(d);
+            qcount++;
+        }
     }
     fclose(f);
     return qcount;
 }
 
-// --- Fonction dédiée au jeu ---
-void play_quiz(int csock, const char *username) {
+// --- Fonction dédiée au jeu avec gestion de la difficulté ---
+void play_quiz(int csock, const char *username, int diff_choice) {
     char buf[BUFSIZE];
     int score = 0;
-    
+    char *diff_name = (diff_choice == 1) ? "DEBUTANT" : (diff_choice == 2) ? "INTERMEDIAIRE" : "EXPERT";
+
     // Tableau des questions disponibles (indices)
     int *avail = malloc(qcount * sizeof(int)); 
     if (!avail) return;
-    // Initialise le tableau
-    for(int i=0; i<qcount; i++) avail[i] = i; 
-    int n_avail = qcount; // Nombre de questions disponibles
 
-    send_all(csock, "INFO: C'est parti %s ! Attention, une erreur et c'est fini !\n", username);
+    // Initialise le tableau en filtrant par la difficulté choisie
+    int n_avail = 0; // Nombre de questions disponibles pour ce niveau
+    for(int i = 0; i < qcount; i++) {
+        if (questions[i].difficulty == diff_choice) {
+            avail[n_avail++] = i;
+        }
+    }
+
+    // Sécurité si aucune question n'est trouvée pour ce niveau
+    if (n_avail == 0) {
+        send_all(csock, "Erreur: Aucune question chargée pour le niveau %s.\n", diff_name);
+        free(avail);
+        return;
+    }
+
+    send_all(csock, "INFO: C'est parti %s ! Mode: %s. Attention, une erreur et c'est fini !\n", username, diff_name);
 
     // Boucle de jeu
     while (n_avail > 0) {
@@ -215,16 +245,19 @@ void play_quiz(int csock, const char *username) {
 
     // Fin du jeu
     send_all(csock, "FIN DU QUIZ. Score final: %d\n", score);
-    save_score_db(username, score);
-    send_all(csock, "Score sauvegardé en base de données.\n");
-    send_global_leaderboard(csock);
+    
+    // Sauvegarde en base avec la difficulté
+    save_score_db_with_diff(username, score, diff_name);
+    send_all(csock, "Score sauvegardé en base de données pour le niveau %s.\n", diff_name);
+    
+    // Affichage du classement spécifique à la difficulté jouée
+    send_leaderboard(csock, diff_choice);
     
     free(avail);
 }
 
 // --- Gère le client : Authentification et Menu Principal ---
 void handle_client(int csock) {
-    // Initialisation aléatoire unique
     srand(time(NULL) ^ getpid()); 
 
     char username[100];
@@ -233,40 +266,44 @@ void handle_client(int csock) {
     // Demande du pseudo
     send_all(csock, "INPUT: Bienvenue sur le Quiz Réseau ! Entrez votre pseudo : \n");
 
-    // Réception du pseudo
     if (recv_line(csock, buf, sizeof(buf)) <= 0) {
         close(csock); 
         return;
     }
     
-    // Attribue un pseudo par défaut si vide
     if (strlen(buf) == 0) strcpy(username, "anonyme");
     else strcpy(username, buf);
 
     // Boucle du Menu Principal
     while (1) {
-        // Envoi du menu ligne par ligne pour éviter les bugs d'affichage
         send_all(csock, "\n--- MENU PRINCIPAL ---\n");
         send_all(csock, "1. Jouer au Quiz\n");
         send_all(csock, "2. Voir le classement\n");
         send_all(csock, "q. Quitter\n");
-        
-        // Ajout de \n à la fin de la demande de choix
-        // Cela débloque le recv_line du client
         send_all(csock, "INPUT: Votre choix : \n");
         
         if (recv_line(csock, buf, sizeof(buf)) <= 0) break;
-
-        // On nettoie la réponse au cas où il y a des espaces
         normalize(buf);
 
         if (strcmp(buf, "1") == 0) {
-            play_quiz(csock, username);
-            break; // Quitte après une partie
+            // Demande de difficulté
+            send_all(csock, "\n--- CHOISISSEZ LA DIFFICULTÉ ---\n");
+            send_all(csock, "1. Débutant\n");
+            send_all(csock, "2. Intermédiaire\n");
+            send_all(csock, "3. Expert\n");
+            send_all(csock, "INPUT: Votre choix (1, 2 ou 3) : \n");
+            
+            if (recv_line(csock, buf, sizeof(buf)) <= 0) break;
+            int diff = atoi(buf);
+            if (diff < 1 || diff > 3) diff = 1; // Valeur par défaut
+
+            play_quiz(csock, username, diff);
+            // On peut choisir de revenir au menu ou de quitter. Ici on continue le menu.
+            continue; 
         } 
         else if (strcmp(buf, "2") == 0) {
-            send_global_leaderboard(csock);
-            // Pas de break, on revient au menu (continue)
+            // Affiche le Top 3 de chaque catégorie
+            send_leaderboard(csock, 0);
             continue; 
         } 
         else if (strcmp(buf, "q") == 0) {
@@ -291,6 +328,8 @@ int main(int argc, char **argv) {
     // Chargement des questions
     if (load_questions("questions.txt") == 0) {
         fprintf(stderr, "Attention: Aucune question chargée.\n");
+        // Question de secours
+        questions[0].difficulty = 1;
         strcpy(questions[0].question, "Test ?");
         strcpy(questions[0].answer, "Oui");
         qcount = 1;
@@ -298,37 +337,30 @@ int main(int argc, char **argv) {
         printf("%d questions chargées.\n", qcount);
     }
 
-    // Création de la socket
-
-    // Utilise les protocoles IPv4 (AF_INET) et TCP (SOCK_STREAM)
-    int sd = socket(AF_INET, SOCK_STREAM, 0); // sd est un entier car il sert d'identifiant
+    int sd = socket(AF_INET, SOCK_STREAM, 0); 
     if (sd < 0) { perror("socket"); return 1; }
 
     struct sockaddr_in servaddr;
     memset(&servaddr, 0, sizeof(servaddr));
     servaddr.sin_family = AF_INET;
-    // Écoute sur toutes les interfaces
     servaddr.sin_addr.s_addr = INADDR_ANY; 
     servaddr.sin_port = htons(PORT); 
     
-    // Option pour réutiliser le port
     int opt=1;
     setsockopt(sd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt));
 
-    // attache le socket au port de la machine
     if (bind(sd, (struct sockaddr*)&servaddr, sizeof(servaddr)) < 0) {
         perror("bind"); return 1;
     }
     
-    // écoute pour détecter si quelqu'un essaie de se connecter sur le port
     if (listen(sd, 10) < 0) { perror("listen"); return 1; }
     
     printf("Serveur Quiz démarré sur le port %d\n", PORT);
 
-    while (1) { // ne s'arrête pas tant que le programme tourne
+    while (1) { 
         struct sockaddr_in cliaddr;
         socklen_t len = sizeof(cliaddr);
-        int csock = accept(sd, (struct sockaddr*)&cliaddr, &len); // attend qu'un client se connecte
+        int csock = accept(sd, (struct sockaddr*)&cliaddr, &len); 
         
         if (csock < 0) {
             if (errno == EINTR) continue; 
@@ -336,18 +368,15 @@ int main(int argc, char **argv) {
             continue;
         }
 
-        // Fork
-        pid_t pid = fork(); // dédoublement, 2 programmes identiques tournent en même temps
+        pid_t pid = fork(); 
         if (pid < 0) {
             perror("fork");
             close(csock);
         } else if (pid == 0) {
-            // Enfant
-            close(sd); // n'a pas besoin de recevoir d'autres appels donc ferme le socket
-            handle_client(csock); // fait jouer l'utilisateur
+            close(sd); 
+            handle_client(csock); 
         } else {
-            // Parent
-            close(csock); // ferme le socket client pour lui car c'est le processus enfant qui s'en sert
+            close(csock); 
             while(waitpid(-1, NULL, WNOHANG) > 0); 
         }
     }
