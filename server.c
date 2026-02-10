@@ -321,11 +321,12 @@ void handle_client(int csock) {
 
 // --- Fonction Principale ---
 int main(int argc, char **argv) {
-    (void)argc; (void)argv;
+    (void)argc; (void)argv; // Ignore les arguments non utilisés pour éviter les avertissements du compilateur
     
     init_db(); // Initialise la BDD
     
     // Chargement des questions
+    // Si le chargement échoue (return 0), on crée une question par défaut pour éviter de planter
     if (load_questions("questions.txt") == 0) {
         fprintf(stderr, "Attention: Aucune question chargée.\n");
         // Question de secours
@@ -337,46 +338,64 @@ int main(int argc, char **argv) {
         printf("%d questions chargées.\n", qcount);
     }
 
+    // Création de la socket serveur (IPv4, TCP)
     int sd = socket(AF_INET, SOCK_STREAM, 0); 
     if (sd < 0) { perror("socket"); return 1; }
 
+    // Configuration de l'adresse du serveur
     struct sockaddr_in servaddr;
     memset(&servaddr, 0, sizeof(servaddr));
-    servaddr.sin_family = AF_INET;
-    servaddr.sin_addr.s_addr = INADDR_ANY; 
-    servaddr.sin_port = htons(PORT); 
+    servaddr.sin_family = AF_INET;        // IPv4
+    servaddr.sin_addr.s_addr = INADDR_ANY; // Écoute sur toutes les interfaces réseau disponibles
+    servaddr.sin_port = htons(PORT);      // Conversion du port en format réseau (Big Endian)
     
+    // Option pour permettre le redémarrage immédiat du serveur pour éviter l'erreur "Address already in use"
     int opt=1;
     setsockopt(sd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt));
 
+    // Liaison de la socket à l'adresse et au port (BIND)
     if (bind(sd, (struct sockaddr*)&servaddr, sizeof(servaddr)) < 0) {
         perror("bind"); return 1;
     }
     
+    // Mise en écoute (LISTEN) avec une file d'attente de 10 connexions max
     if (listen(sd, 10) < 0) { perror("listen"); return 1; }
     
     printf("Serveur Quiz démarré sur le port %d\n", PORT);
 
+    // Boucle infinie pour accepter les clients
     while (1) { 
         struct sockaddr_in cliaddr;
         socklen_t len = sizeof(cliaddr);
+        
+        // Accepte une connexion entrante
         int csock = accept(sd, (struct sockaddr*)&cliaddr, &len); 
         
+        // Gestion d'erreur sur l'acceptation
         if (csock < 0) {
-            if (errno == EINTR) continue; 
+            if (errno == EINTR) continue; // Si interrompu par un signal système, on réessaie
             perror("accept");
             continue;
         }
 
+        // Gestion de la concurrence avec fork()
+        // On crée un processus enfant pour gérer ce client spécifiquement
         pid_t pid = fork(); 
+        
         if (pid < 0) {
-            perror("fork");
+            perror("fork"); // Erreur de création du processus
             close(csock);
         } else if (pid == 0) {
-            close(sd); 
-            handle_client(csock); 
+            // Code du processus ENFANT
+            close(sd); // L'enfant n'a pas besoin de la socket d'écoute principale
+            handle_client(csock); // Gère toute la logique du jeu pour ce client
+            // Quand handle_client termine, le processus enfant se termine
         } else {
-            close(csock); 
+            // Code du processus PARENT
+            close(csock); // Le parent n'a plus besoin de la socket client (c'est l'enfant qui s'en charge)
+            
+            // Nettoyage des processus zombies : 
+            // vérifie si des enfants sont morts sans bloquer le serveur
             while(waitpid(-1, NULL, WNOHANG) > 0); 
         }
     }
